@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        enum: [ "Mr","Mrs", "Miss"]
+        enum: ["Mr", "Mrs", "Miss"]
     },
     name: {
         type: String,
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-         match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,  // Password validation using Regex
+        match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,  // Password validation using Regex
         minlength: 8,
         maxlength: 15
     },
