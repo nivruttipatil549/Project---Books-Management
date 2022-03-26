@@ -5,11 +5,13 @@ const bookSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     excerpt: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     userId: {
         type: ObjectId,
@@ -19,33 +21,33 @@ const bookSchema = new mongoose.Schema({
     ISBN: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        match: /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/,
+        trim: true
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     subcategory: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     reviews: {
         type: Number,
-        default: 0,
-        comment: Number
+        default: 0, // comment: Number
+
     },
-    deletedAt: {
-        type: Date
-        //when the document is deleted
-    },
+    deletedAt: Date,  //when the document is deleted
     isDeleted: {
         type: Boolean,
         default: false
     },
     releasedAt: {
         type: Date,
-        required: true,
-        // format("YYYY-MM-DD")
+        required: true,  // format("YYYY-MM-DD") 
     },
 },
     { timestamps: true });
