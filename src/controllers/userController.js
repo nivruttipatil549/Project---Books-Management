@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         if (!isValidRequestBody(requestBody)) {
             return res.status(400).send({ status: false, message: "Invalid request parameters. Please provide User details" })
         }
-        const { title, name, phone, email, password } = req.body
+        const { title, name, phone, email, password , address} = req.body
 
         if (!isValid(title)) {
             return res.status(400).send({ status: false, message: 'title is required' })
@@ -59,8 +59,9 @@ const createUser = async (req, res) => {
             return res.status(400).send({ status: false, message: 'password should be valid password' })
 
         }
+        const newUser = { title: title, name: name, phone: phone, email: email,password: password, address:address }
 
-        const userCreated = await userModel.create(requestBody)
+        const userCreated = await userModel.create(newUser)
         res.status(201).send({ status: true, message: "Success", data: userCreated })
     }
     catch (error) {
