@@ -1,18 +1,10 @@
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const { isValid, isValidRequestBody } = require('../validator/validator');
 
-const isValid = (value) => {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    return true;
-}
-const isValidRequestBody = (requestBody) => {
-    if (Object.keys(requestBody).length) return true
-    return false;
-}
 const createUser = async (req, res) => {
     try {
-        requestBody = req.body;
+       const requestBody = req.body;
 
         if (!isValidRequestBody(requestBody)) {
             return res.status(400).send({ status: false, message: "Invalid request parameters. Please provide User details" })
@@ -21,6 +13,10 @@ const createUser = async (req, res) => {
 
         if (!isValid(title)) {
             return res.status(400).send({ status: false, message: 'title is required' })
+        }
+    
+        if(["Mr", "Mrs", "Miss"].indexOf(title) === -1 ){
+            return res.status(400).send({status:false, msg:"Plz enter vaild Title"})
         }
 
         if (!isValid(name)) {
@@ -65,10 +61,7 @@ const createUser = async (req, res) => {
         res.status(201).send({ status: true, message: "Success", data: userCreated })
     }
     catch (error) {
-        return res.status(500).send({
-            status: false,
-            message: error.message
-        });
+        return res.status(500).send({ status: false, message: error.message});
     }
 }
 
