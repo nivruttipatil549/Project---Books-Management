@@ -2,50 +2,32 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const reviewSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    excerpt: {
-        type: String,
-        required: true
-    },
     bookId: {
         type: ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'Book'
     },
-    ISBN: {
-        type: String,
+    reviewedBy: {
+        type: String,    // value: reviewer's name
         required: true,
-        unique: true
+        default: "Guest",
     },
-    category: {
-        type: String,
-        required: true
+    reviewedAt: {
+        type: Date,
+        reuired: true
     },
-    subcategory: {
-        type: String,
-        required: true
-    },
-    reviews: {
+    rating: {
         type: Number,
-        default: 0,
-        comment: Number
+        minlength: 1,
+        maxlength: 5,
+        required: true
     },
-    deletedAt: {
-        Date,
-        //when the document is deleted
+    review: {
+        type: String,    //optional
     },
     isDeleted: {
         type: Boolean,
         default: false
-    },
-    releasedAt: {
-        type: Date,
-        required: true,
-        // format("YYYY-MM-DD")
     },
 })
 
