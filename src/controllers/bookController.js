@@ -132,7 +132,7 @@ const getBooksById = async (req, res) => {
 
         const bookData = { _id: bookId, title, excerpt, userId, category, subcategory, isDeleted, reviews, releasedAt }
 
-        const reviewDetails = await reviewModel.find({ bookId: bookId, isDeleted: false });
+        const reviewDetails = await reviewModel.find({ bookId: bookId, isDeleted: false }).select({isDeleted: 0, __v: 0});
         if (reviewDetails) {
             bookData.reviewsData = reviewDetails
         }

@@ -86,7 +86,7 @@ const updateReview = async (req, res) => {
         if (!isValid2(reviewedBy)) {
             return res.status(400).send({ status: false, message: 'reviewedBy is required' })
         }
-        const reviewData = await reviewModel.findByIdAndUpdate(reviewId, requestBody, { new: true })
+        const reviewData = await reviewModel.findByIdAndUpdate(reviewId, requestBody, { new: true }).select({isDeleted: 0, __v:0})
         const bookData = await bookModel.findOne({ _id: bookId, isDeleted: false })
         res.status(200).send({ status: true, message: "Review updated successfully", data: reviewData });
 
