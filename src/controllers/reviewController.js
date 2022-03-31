@@ -22,7 +22,7 @@ const addReview = async (req, res) => {
             return res.status(404).send({ status: false, message: `Book data not found !` });
         }
 
-        if (  !isValid(reviewedBy)) {
+        if ( reviewedBy && !isValid(reviewedBy)) {
             return res.status(400).send({ status: false, message: 'reviewedBy is required' })
         }
         if (!isValid(reviewedAt)) {
