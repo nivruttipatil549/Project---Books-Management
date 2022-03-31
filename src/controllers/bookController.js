@@ -23,7 +23,7 @@ const createBook = async (req, res) => {
         }
         const titleExist = await bookModel.findOne({ title });
         if (titleExist) {
-            return res.status(409).send({ status: false, message: "Title already exists" })
+            return res.status(400).send({ status: false, message: "Title already exists" })
         }
 
         if (!isValid(excerpt)) {
@@ -47,7 +47,7 @@ const createBook = async (req, res) => {
 
         const ISBNexist = await bookModel.findOne({ ISBN });
         if (ISBNexist) {
-            return res.status(409).send({ status: false, message: "ISBN  already exists" })
+            return res.status(400).send({ status: false, message: "ISBN  already exists" })
         }
 
         if (!(/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(ISBN))) {
